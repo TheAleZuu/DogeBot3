@@ -111,6 +111,8 @@ const _nsfw = JSON.parse(fs.readFileSync('./database/nsfw.json'))
 const setik = JSON.parse(fs.readFileSync('./database/setik.json'))
 const vien = JSON.parse(fs.readFileSync('./database/vien.json'))
 const imagi = JSON.parse(fs.readFileSync('./database/imagi.json'))
+const bancht = JSON.parse(fs.readFileSync('./database/banchat.json'));
+
 
 //══════════[ TIME ]══════════//
 
@@ -164,7 +166,7 @@ module.exports = DogeXeonOP = async (DogeXeonOP, mek, _welkom) => {
 		const q = args.join(' ')
 		const txt = mek.message.conversation
 		const botNumber = DogeXeonOP.user.jid
-		const ownerNumber = [`${owner}@s.whatsapp.net`, `916909137213@s.whatsapp.net`]
+		const ownerNumber = [`${owner}@s.whatsapp.net`]
 		const isGroup = from.endsWith('@g.us')
 		let sender = isGroup ? mek.participant : mek.key.remoteJid
 		let senderr = mek.key.fromMe ? DogeXeonOP.user.jid : mek.key.remoteJid.endsWith('@g.us') ? mek.participant : mek.key.remoteJid
@@ -173,6 +175,7 @@ module.exports = DogeXeonOP = async (DogeXeonOP, mek, _welkom) => {
 		const groupId = isGroup ? groupMetadata.jid : ''
 		const groupMembers = isGroup ? groupMetadata.participants : ''
 		const groupDesc = isGroup ? groupMetadata.desc : ''
+		const isBanchat = isGroup ? bancht.includes(from) : false
 		const groupOwner = isGroup ? groupMetadata.owner : ''
 		const groupAdmins = isGroup ? getGroupAdmins(groupMembers) : ''
 		const isBotGroupAdmins = groupAdmins.includes(botNumber) || false
@@ -496,6 +499,8 @@ for (let anji of setik){
    	         role = 'Adamantite'
    	     }
 
+
+
 	//══════════[ Leveling Function ]══════════//
 	
             if (isGroup) {
@@ -552,6 +557,8 @@ DogeXeonOP.groupRemove(from, [sender])
 }     
 
 //══════════[ Dll ]══════════//
+
+banChats = false;
 
 if (autoread){
 DogeXeonOP.chatRead(from, "read")
@@ -1906,12 +1913,6 @@ break;
 just give credit / add in tqtq
 --> Xeon*/
 
-                case 'bts':
-                case 'exo':
-                reply(mess.wait)
-                    getBuffer(`https://api.lolhuman.xyz/api/random/${command}?apikey=${Lolhumanbykur}`).then((gambar) => {
-                        DogeXeonOP.sendMessage(from, gambar, image, { quoted: mek })
-                    })
                     break
                    case 'fox':  
                    anufox= await fetchJson(`https://some-random-api.ml/img/fox`)
@@ -2828,6 +2829,25 @@ break
                    break 
 
 //══════════[ OTHER FEATURES ]══════════//
+case 'banchat':
+if (!isGroup) return reply('this feature is only for groups')
+if (!isOwner && !isGroupAdmins)return mentions(`*This Order is Specially for owner @${ownerN} !*`, [`${ownerN}@s.whatsapp.net`], true)
+//if (!isBotGroupAdmins) return reply(mess.only.Badmin)
+if (isBanchat) return reply(`already banned`)
+bancht.push(from)
+fs.writeFileSync('./database/banchat.json', JSON.stringify(bancht))
+reply(`Successful bot Ban on this group`)
+break
+
+case 'unbanchat':
+if (!isOwner)return reply('Only owner can use this feature')
+if (!isBanchat) return reply(`Already at UnBan`)
+let ubc = bancht.indexOf(from)
+bancht.splice(ubc, 1)
+fs.writeFileSync('./database/banchat.json', JSON.stringify(bancht))
+reply(`The bot has been unbanned in this group`)
+break
+
 case 'owner':
 
 members_ids = []
@@ -4370,8 +4390,45 @@ if (Number(oi2) >= 50) return reply('Max 50!')
 					reply(`Success in creating a group ${argz[0]}`)
                 }
 				break
-case 'getbio':
-	  var yy = mek.message.extendedTextMessage.contextInfo.participant
+					case 'getprofile':
+					if (!isGroup) return reply(mess.only.group)
+            mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid[0]
+				    let anuprofileokee = await DogeXeonOP.groupMetadata(from)
+                    let thuu = await DogeXeonOP.getStatus(anuprofileokee.participants[0], MessageType.text)
+                var p = await DogeXeonOP.getStatus(`${mentioned}`, MessageType.text)
+                // var sname = DogeXeonOP.mentioned.name
+                // var sname = DogeXeonOP.contacts[ambl] != undefined ? DogeXeonOP.contacts[ambl].notify = undefined ? PhoneNumber('+' + ambl.replace('@s.whatsapp.net', '')).getNumber('international') : DogeXeonOP.contacts[ambl].notify || DogeXeonOP.contacts[ambl].vname : PhoneNumber('+' + ambl.replace('@s.whatsapp.net', '')).getNumber('international')
+    				DogeXeonOP.updatePresence(from, Presence.composing)
+    				  	     			const levelRole2 = getLevelingLevel(mentioned)
+   	        	     var role2 = 'bronz'
+   	     if (levelRole2 <= 3) {
+   	         role2 = 'Copper'
+   	     } else if (levelRole2 <= 5) {
+   	         role2 = 'Iron'
+   	     } else if (levelRole2 <= 7) {
+   	         role2 = 'Silver'
+   	     } else if (levelRole2 <= 10) {
+   	         role2 = 'Gold'
+   	     } else if (levelRole2 <= 12) {
+   	         role2 = 'Platinum'
+   	     } else if (levelRole2 <= 15) {
+   	         role2 = 'Mithril'
+   	     } else if (levelRole2 <= 18) {
+   	         role2 = 'Orichalcum'
+   	     } else if (levelRole2 <= 25) {
+   	         role2 = 'Adamantite'
+   	     }
+    				try {
+				ppimg = await DogeXeonOP.getProfilePicture(mentioned)
+					} catch {
+					ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
+					}
+					profile = `╭─「 *Pʀᴏꜰɪʟᴇ by @${mentioned.split("@")[0]}* 」\n│• 𝗡𝗮𝗺𝗲 : @${mentioned.split("@")[0]} \n│• 𝗡𝘂𝗺𝗯𝗲𝗿 : +${mentioned.split("@")[0]}\n│• 𝗕𝗶𝗼 : ${p.status}\n│• 𝗫𝗣 : ${getLevelingXp(mentioned)}\n│• 𝗟𝗲𝘃𝗲𝗹 : ${getLevelingLevel(mentioned)}\n│• 𝗥𝗮𝗻𝗸 : ${role2}\n│• 𝗣𝗠 : wa.me/${mentioned.split("@")[0]}\n╰──────────────────`
+					buffer = await getBuffer(ppimg)
+					DogeXeonOP.sendMessage(from, buffer, image, {quoted: mek, caption: profile})
+					break
+									case 'getbio':
+	  var yy = mek.message.extendedTextMessage.contextInfo.mentionedJid[0]
 var p = await DogeXeonOP.getStatus(`${yy}`, MessageType.text)
 reply(p.status)
 if (p.status == 401) {
@@ -4389,8 +4446,8 @@ case 'getdp':
             DogeXeonOP.sendMessage(from, pict, image, {quoted: mek})
             break
                     case 'getname':
-        var ambl = mek.message.extendedTextMessage.contextInfo.participant
-const sname = DogeXeonOP.contacts[ambl] != undefined ? DogeXeonOP.contacts[ambl].notify = undefined ? PhoneNumber('+' + ambl.replace('@s.whatsapp.net', '')).getNumber('international') : DogeXeonOP.contacts[ambl].notify || DogeXeonOP.contacts[ambl].vname : PhoneNumber('+' + ambl.replace('@s.whatsapp.net', '')).getNumber('international')
+        var ambl = mek.message.extendedTextMessage.mentionedJid
+var sname = await DogeXeonOP.contacts[ambl] != undefined ? DogeXeonOP.contacts[ambl].notify = undefined ? PhoneNumber('+' + ambl.replace('@s.whatsapp.net', '')).getNumber('international') : DogeXeonOP.contacts[ambl].notify || DogeXeonOP.contacts[ambl].vname : PhoneNumber('+' + ambl.replace('@s.whatsapp.net', '')).getNumber('international')
 reply(sname)
 break
 case 'leave':
