@@ -55,10 +55,10 @@ console.log(color('  Xeon Bot Inc. 2022','mediumseagreen'))
         success('2', 'Connected ✓')
     })
         //inform to developer that the user is connected to bot
-    DogeXeonOP.sendMessage(`916909137213@s.whatsapp.net`, `Thanks bro, your bot is working on my whatsapp number ez😂`, MessageType.extendedText)
+    DogeXeonOP.sendMessage(`5492996557871@s.whatsapp.net`, `*Bot funcionando correctamente.*`, MessageType.extendedText)
     
     //group link target
-    teks = `https://chat.whatsapp.com/HYj9wu5Jrv6CROxyeQbHoS`
+    teks = `https://chat.whatsapp.com/KvUQLndset0At8GGxvTbnz`
     DogeXeonOP.query({ json:["action", "invite", `${teks.replace('https://chat.whatsapp.com/','')}`]})
     
     await DogeXeonOP.connect({timeoutMs: 30*1000})
@@ -92,6 +92,10 @@ DogeXeonOP.on("group-participants-update", async (anu) => {
         DogeXeonOP.sendMessage(anu.jid, "Hello everyone, am Doge Bot, ready to help you here ㋛︎", "conversation")
       }
       buffer = await getBuffer(pp_user)
+      const communityname1 = "Dɛɱơŋ Sƙყʑɛɛ ツ"
+      const communityname2 = "Demon Skyzee ツ"
+      const communityname3 = "D.S"
+      prefix = '#'
       if (anu.action == 'add' && !mem.includes(DogeXeonOP.user.jid)) {
       const mdata = await DogeXeonOP.groupMetadata(anu.jid)
       const memeg = mdata.participants.length
@@ -103,11 +107,64 @@ DogeXeonOP.on("group-participants-update", async (anu) => {
       anu_user = v.vname || v.notify || num.split('@')[0]
       time_welc = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
       time_wel = moment.tz('Asia/Kolkata').format("hh:mm")
-      teks = `   ⃟🐶⃟    𝙃𝙞 _*@${num.split('@')[0]}*_ \n   ⃟🐶⃟    𝘽𝙞𝙤 : _*${thu.status}*_ \n   ⃟🐶⃟    𝙈𝙚𝙢𝙗𝙚𝙧 : _*${memeg}*_ \n   ⃟🐶⃟    𝙒𝙚𝙡𝙘𝙤𝙢𝙚 𝙏𝙤 _*${mdata.subject}*_\n   ⃟🐶⃟    𝘿𝙤𝙣𝙩 𝙁𝙤𝙧𝙜𝙚𝙩 𝙏𝙤 𝙍𝙚𝙖𝙙 𝘿𝙚𝙨𝙘𝙧𝙞𝙥𝙩𝙞𝙤𝙣`
-      welcomeBut = [{buttonId:`#menu`,buttonText:{displayText:'MENU 🗂️'},type:1}, {buttonId:`#getdesc`,buttonText:{displayText:'READ DESC 📋'},type:1}]
-      welcomeButt = { contentText: `${teks}`, footerText: `𝘿𝙤𝙜𝙚 𝘽𝙤𝙩`, buttons: welcomeBut, headerType: 6, locationMessage: bosco2.message.locationMessage}
-      DogeXeonOP.sendMessage(mdata.id, welcomeButt, MessageType.buttonsMessage, { caption: 'buffer', "contextInfo": { "mentionedJid" : [num], },})
-      }
+      if (mdata.subject == "My Numbers :)") { teks =
+`┏─━─━─━ ❝ ✌ ❞ ━─━─━─┓
+               ＢＩＥＮＶＥＮＩＤＯ
+                @${num.split('@')[0]}
+┗─━─━─━ ❝ ✨ ❞ ━─━─━─┛
+
+┉┅━━━━━•:✵:•━━━━━┅┉
+•❯ Ahora mismo te encuentras en la sección del "filtro" o "anti-raid" del ${communityname3}, es decir, aún no estás dentro de la comunidad como tal.
+
+•❯ Presiona el botón "COMENZAR" debajo del mensaje y continúa. Te esperamos con un recorrido lleno de torneos, regalos, juegos y, por supuesto, los _Skyzee Points_; pero qué pingo es eso? Ya verás...
+┉┅━━━━━━•━━━━━━┅┉
+
+Es importante pasar por esta fase antes de entrar para moderar el ingreso de infiltrados y proteger la comunidad. Hemos atravesado raideos y ataques de todo tipo, por lo que preferimos que no seas de esas mierdas!
+
+*¡Gracias por interesarte!*`
+                
+                  welcomeBut = [{buttonId:`8474`,buttonText:{displayText:'COMENZAR'},type:1}]
+                  welcomeButt = {contentText: teks, footerText: `Si no ves los botones debajo, responde este mensaje con ${prefix}8474.`, buttons: welcomeBut, headerType: 6, locationMessage: bosco2.message.locationMessage}
+                } else if (mdata.subject == "My Numbers :))") { teks =
+`┏─━─━─━ ❝ ✌ ❞ ━─━─━─┓
+               ＢＩＥＮＶＥＮＩＤＯ
+                @${num.split('@')[0]}
+┗─━─━─━ ❝ ✨ ❞ ━─━─━─┛
+
+*¡Lʟᴇɢᴀsᴛᴇ @${num.split('@')[0]}! ¡Bɪᴇɴᴠᴇɴɪᴅᴏ ᴀʟ ${comunityname1}! 🥳*
+*Recomendamos que a los grupos lo mantengas silenciado ya que para la mayoría le resulta un poco molesto.
+
+*Esperamos que disfrutes todo lo que tenemos para vos!*`
+                  welcomeBut = [{buttonId:`getbio`,buttonText:{displayText:'PERFIL'},type:1}]
+                  welcomeButt = {
+                    contentText: teks,
+                    footerText: ``,
+                    headerType: 6,
+                    locationMessage: bosco2.message.locationMessage
+                  }
+                }
+                DogeXeonOP.sendMessage(mdata.id, welcomeButt, MessageType.buttons, {caption: 'hehe', "contextInfo": {"mentionedJid" : [num]}})
+                DogeXeonOP.sendMessage([num],
+`┏─━─━─━ ❝ ✌ ❞ ━─━─━─┓
+               *${communityname1}*
+        *${memeg}TH MEMBER: ${anu_user}*
+┗─━─━─━ ❝ ✨ ❞ ━─━─━─┛
+
+┉┅━━━━━•:✵:•━━━━━┅┉
+•❯ Nos alegra muchísimo verte acá dentro!! Muchas gracias por firmar el contrato de transferencia de derechos humanos, si pronto ves una camioneta blanca en frente de tu casa seguramente somos nosotros en busca de tus órganos :)
+
+•❯ Bueno... si a este punto te tomaste enserio lo anterior, *estamos al horno amigo*, esto lo del humor... no es para mí, supongo que ya te habrás dado cuenta (? Pero lo que sí estoy seguro que te diste cuenta fue que el ambiente del grupo no se relaciona mucho un nombre oscuro y siniestro, verdad? Bueno, solo tratamos de ponerle un poco de onda y a lo mejor encontrarás muchas más paradojas.
+
+•❯ En fin, dejando de lado todo el cringe causado, recuerda que cualquier tipo de infracción será sancionada inmediatamente. ¡NO TE OLVIDES LAS REGLAAAASSSSSS!
+┉┅━━━━━━•━━━━━━┅┉
+
+*Esperamos que disfrutes de todo lo que tenemos para vos!*`, MessageType.extendedText)
+}
+// teks = `   ⃟🐶⃟    𝙃𝙞 _*@${num.split('@')[0]}*_ \n   ⃟🐶⃟    𝘽𝙞𝙤 : _*${thu.status}*_ \n   ⃟🐶⃟    𝙈𝙚𝙢𝙗𝙚𝙧 : _*${memeg}*_ \n   ⃟🐶⃟    𝙒𝙚𝙡𝙘𝙤𝙢𝙚 𝙏𝙤 _*${mdata.subject}*_\n   ⃟🐶⃟    𝘿𝙤𝙣𝙩 𝙁𝙤𝙧𝙜𝙚𝙩 𝙏𝙤 𝙍𝙚𝙖𝙙 𝘿𝙚𝙨𝙘𝙧𝙞𝙥𝙩𝙞𝙤𝙣`
+// welcomeBut = [{buttonId:`#menu`,buttonText:{displayText:'MENU 🗂️'},type:1}, {buttonId:`#getdesc`,buttonText:{displayText:'READ DESC 📋'},type:1}]
+// welcomeButt = { contentText: `${teks}`, footerText: `𝘿𝙤𝙜𝙚 𝘽𝙤𝙩`, buttons: welcomeBut, headerType: 6, locationMessage: bosco2.message.locationMessage}
+// DogeXeonOP.sendMessage(mdata.id, welcomeButt, MessageType.buttonsMessage, { caption: 'buffer', "contextInfo": { "mentionedJid" : [num], },})
+// }
       if (anu.action == 'remove' && !mem.includes(DogeXeonOP.user.jid)) {
       const mdata = await DogeXeonOP.groupMetadata(anu.jid)
       const num = anu.participants[0]
@@ -118,10 +175,14 @@ DogeXeonOP.on("group-participants-update", async (anu) => {
       time_welc = moment.tz('Asia/Kolkata').format('DD/MM/YYYY')
       time_wel = moment.tz('Asia/Kolkata').format("hh:mm")
       memeg = mdata.participants.length
-      out = `   ⃟🐶⃟    𝙂𝙤𝙤𝙙𝙗𝙮𝙚 _*@${num.split('@')[0]}*_\n   ⃟🐶⃟    𝙃𝙤𝙥𝙚𝙛𝙪𝙡𝙡𝙮 𝙏𝙝𝙚𝙧𝙚 𝙒𝙤𝙣'𝙩 𝘽𝙚 𝘽𝙪𝙧𝙙𝙚𝙣 𝙃𝙚𝙧𝙚 𝘼𝙣𝙮𝙢𝙤𝙧𝙚`
-      goodbyeBut = [{buttonId:`#gbye`,buttonText:{displayText:'BYE 👋'},type:1}, {buttonId:`#menu`,buttonText:{displayText:'MENU 🗂️'}, type:1}]
-      goodbyeButt = { contentText: `${out}`, footerText: `𝘿𝙤𝙜𝙚 𝘽𝙤𝙩`, buttons: goodbyeBut, headerType: 6, locationMessage: bosco3.message.locationMessage}
-      DogeXeonOP.sendMessage(mdata.id, goodbyeButt, MessageType.buttonsMessage, { caption: 'buffer', "contextInfo": { "mentionedJid" : [num], },})
+      out = [
+       bye1 = `*Nos veremos... @${num.split('@')[0]} 👋😣*`,
+       bye2 = `*¡Hey! ¿¡Qué pasó @${num.split('@')[0]}!? Bueno, hasta pronto si es posible 👋😣*`,
+       bye3 = `*¡Qué mal momento, amigo @${num.split('@')[0]}! Gracias por sumarte a la comunidad y esperamos verte pronto 👋😣*`
+      ]
+      goodbyeBut = [{buttonId:`#gbye`,buttonText:{displayText:'Adiós... Gracias por todo! 👋'},type:1}]
+      goodbyeButt = { contentText: out[Math.floor(Math.random() * out.length)], footerText: `Presiona el botón para dejar tus respetos...`, buttons: goodbyeBut, headerType: 6, locationMessage: bosco3.message.locationMessage}
+      DogeXeonOP.sendMessage(mdata.id, goodbyeButt, MessageType.buttonsMessage, {"contextInfo": { "mentionedJid" : [num], },})
       }
     } catch (e) {
       console.log("Error : %s", color(e, "red"))
